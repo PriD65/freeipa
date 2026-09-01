@@ -1281,7 +1281,11 @@ class change_password(Backend, HTTP_Status):
         result = 'error'
         policy_error = None
 
-        bind_dn = DN((self.api.Object.user.primary_key.name, data['user']),
+        user = data['user']
+        realm_suffix = '@' + self.api.env.realm
+        if user.upper().endswith(realm_suffix.upper()):
+            user = user[:-len(realm_suffix)]
+        bind_dn = DN((self.api.Object.user.primary_key.name, user),
                      self.api.env.container_user, self.api.env.basedn)
 
         try:
