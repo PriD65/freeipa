@@ -1251,8 +1251,8 @@ class change_password(Backend, HTTP_Status):
         if principal is None:
             lookup = user
             uid = user
-        elif (principal.realm is None or
-                unicode(principal.realm).upper() == self.api.env.realm):
+        elif (principal.realm is None
+                or unicode(principal.realm).upper() == self.api.env.realm):
             uid = principal.username
             lookup = unicode(
                 kerberos.Principal(uid, realm=self.api.env.realm))
